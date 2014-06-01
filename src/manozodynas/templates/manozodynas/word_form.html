@@ -6,10 +6,16 @@
 <title>LaBu</title>
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 </head>
-
 <body>
     <h1 style="text-align:center">LaBu - ŽODYNAS</h1>
-    <a href="/list" class="btn btn-primary btn-lg btn-block">Peržiūrėti žodyną</a>
-    <a href="/add"  class="btn btn-primary btn-lg btn-block">Pridėti naują žodį</a>
+    <div>
+    <div style="width: 50%; margin:0px auto">
+    <form method="POST" action="">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Add" class="btn btn-default" />
+    </form>
+    </div>
+    </div>
 </body>
 </html>

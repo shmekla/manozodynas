@@ -3,6 +3,8 @@ from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from .forms import LoginForm
 from django.contrib.auth import login
+from django.views.generic import CreateView
+from manozodynas.models import Word
 
 def index_view(request):
     return render(request, 'manozodynas/index.html', {})
@@ -19,3 +21,7 @@ def login_view(request):
         form = LoginForm()
     #import ipdb; ipdb.set_trace()
     return render(request, 'manozodynas/login.html', {'form':form})
+
+class WordAdd(CreateView):
+    model = Word
+    success_url = "/"
