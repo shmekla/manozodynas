@@ -48,6 +48,9 @@ class User(AbstractBaseUser, PermissionsMixin):
 class Word(models.Model):
     word = models.CharField(_('word'), max_length=255, unique=True)
 
+    def __unicode__(self):
+        return self.word
+
 class Translation(models.Model):
     translation = models.TextField()
     word = models.ForeignKey("Word")

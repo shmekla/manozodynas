@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from .forms import LoginForm
 from django.contrib.auth import login
-from django.views.generic import CreateView
+from django.views.generic import CreateView, ListView
 from manozodynas.models import Word
 
 def index_view(request):
@@ -25,3 +25,6 @@ def login_view(request):
 class WordAdd(CreateView):
     model = Word
     success_url = "/"
+
+class WordList(ListView):
+    model = Word

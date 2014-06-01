@@ -1,0 +1,23 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>LaBu</title>
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+</head>
+<body>
+    <h1 style="text-align:center">LaBu - ŽODYNAS</h1>
+    <div>
+    <div style="width: 50%; margin:0px auto">
+    <ul>
+    {% for word in object_list %}
+        <li>{{ word }}</li>
+    {% empty %}
+        <li>Nėra įvesčių.</li>
+    {% endfor %}
+    </ul>
+    </div>
+    </div>
+</body>
+</html>
