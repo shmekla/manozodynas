@@ -10,9 +10,16 @@
     <h1 style="text-align:center">LaBu - ŽODYNAS</h1>
     <div>
     <div style="width: 50%; margin:0px auto">
-    <ul>
+    <ul style="list-style:none">
+    <a href="/" class="btn btn-default">Back</a>
     {% for word in object_list %}
-        <li>{{ word }}</li>
+        <li style="margin:10px 0px">
+            <a href="/{{ word.id }}/translation" class="btn btn-primary">+</a>
+            {{ word }} --
+            {% for translation in word.translation_set.all %}
+                / {{translation.translation}}
+            {% endfor %}
+        </li>
     {% empty %}
         <li>Nėra įvesčių.</li>
     {% endfor %}

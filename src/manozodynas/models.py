@@ -52,5 +52,5 @@ class Word(models.Model):
         return self.word
 
 class Translation(models.Model):
-    translation = models.TextField()
+    translation = models.CharField(_('translation'), max_length=255, unique=True)
     word = models.ForeignKey("Word")
