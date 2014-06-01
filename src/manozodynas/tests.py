@@ -2,6 +2,8 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from manozodynas.testutils import StatefulTesting
+from manozodynas.models import Word, Translation
+from django.test import Client
 
 
 class IndexTestCase(StatefulTesting):
@@ -66,3 +68,40 @@ class LoginTestCase(StatefulTesting):
         })
         self.assertStatusCode(200)
         self.selectOne('.errorlist')
+
+
+class WordAddTest(StatefulTesting):
+    def tw_add(self):
+        words = Word.objects.all()
+        self.assertFalse(words.filter(word='test-laurynas-budrys').exists())
+        self.open(reverse('add'))
+        self.selectForm('#add-form')
+        self.submitForm({
+            'word': 'test-laurynas-budrys',
+        })
+        self.assertStatusCode(302)
+        self.assertTrue(words.filter(word='test-laurynas-budrys').exists())
+
+
+class TranslationAddTest(StatefulTesting):
+    def tt_add(self):
+        client = Client()
+        response = client.post(reverse('add'), {
+            'word': 'translate-budrys'
+        })
+        self.assertEqual(response.status_code, 302)
+        words = Word.objects.all()
+        self.assertTrue(words.filter(word='translate-budrys').exists())
+        test_word = words.get(word='translate-budrys')
+        response = client.post("/" + str(test_word.id) + '/translation', {
+            'translation': 'translate-budrys2',
+        })
+        self.assertEqual(response.status_code, 302)
+        translation = Translation.objects.all()
+        self.assertTrue(
+                translation.filter(translation='translate-budrys2',
+                                   word=test_word).exists()
+        )
+
+
+
